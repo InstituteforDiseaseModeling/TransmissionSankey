@@ -40,7 +40,8 @@ import time as time
 
 curr_folder = 'output_TRANSMISSION_AND_RELATIONSHIPS'
 base_directory_path = 'Z:/mint/Dropbox (IDM)/research/HIV/2017/Kenya_non_resident_comparison/modeling'
-
+save_transmission_dataset_filename = "Transmission_with_RiskIP.pkl"
+how_often_to_report_time = 1 # number of transmission events to record before reporting time
 
 script_start_time = time.time()
 
@@ -51,63 +52,93 @@ transm = pd.read_csv(os.path.join(base_directory_path, curr_folder, 'Transmissio
 
 # keep only years >=2015 and <2020
 transm = transm[(transm.YEAR >= 2015) & (transm.YEAR < 2020)]
-# print(transm.shape) # down to a few thousand transmission events
-    
 
-# drop irrelevant columns
-# print(transm.columns.values)
+# keep only relevant columns
 transm = transm[['YEAR','NODE_ID','SRC_ID','SRC_GENDER','SRC_AGE','SRC_CIRCUMSIZED','SRC_INF_AGE', 'DEST_ID','DEST_GENDER','DEST_AGE','DEST_CIRCUMSIZED']]
-# print(transm.shape)
-
 
 # load relationship CSV
 rels = pd.read_csv(os.path.join(base_directory_path, curr_folder, 'RelationshipStart.csv'))
 
-# print(rels.shape)
-# print(list(rels)) #same as print(rels.columns.values)
+# keep only relevant columns
 rels = rels[['Rel_start_time','Rel_type (0 = TRANSITORY; 1 = INFORMAL; 2 = MARITAL; 3 = COMMERCIAL)','Current_node_ID', 'A_ID', 'B_ID', 'A_IndividualProperties', 'B_IndividualProperties']]
+
+# the model logs time only in days. Translate this to years using 1960.5 as Start_Year
+# Note, verify that this Start_Year is correct by checking config.json
 rels['YEAR'] = rels.Rel_start_time/365 + 1960.5
 rels = rels[(rels.YEAR  < 2020)]
 
-transm['Risk'] = 'TBD'
+transm['SRC_Risk'] = 'SRC_TBD'
+transm['DEST_Risk'] = 'DEST_TBD'
 
 # for each transmission event in 2015-2020,
 for transm_index, curr_transm in transm.iterrows():
    
     print(transm_index)    
-    if transm_index%100 == 0:
+    if transm_index%how_often_to_report_time == 0:
         iter_start_time = time.time()
     # take the FROM individual ID and year of transmission event
-    curr_FROM_ID = curr_transm['SRC_ID']
+    curr_SRC_ID = curr_transm['SRC_ID']
+    curr_DEST_ID = curr_transm['DEST_ID']
     curr_transm_yr = curr_transm['YEAR']
-    SRC_rels = rels[((rels.A_ID == curr_transm['SRC_ID']) | (rels.B_ID == curr_transm['SRC_ID']))]
+    
+    
+    # assign IP to SRC individual
+    
+    SRC_rels = rels[((rels.A_ID == curr_SRC_ID) | (rels.B_ID == curr_SRC_ID))]
     
     # determine if they have been in a COMMERCIAL relship prior to the date of transmission:
     SRC_commercial_rels = SRC_rels[(SRC_rels['Rel_type (0 = TRANSITORY; 1 = INFORMAL; 2 = MARITAL; 3 = COMMERCIAL)']==3) & (SRC_rels['YEAR'] <= curr_transm_yr)]
 
     if SRC_commercial_rels.shape[0]>0:
-      #  transm.Risk.loc[[transm_index]] = 'HIGH'
-      transm.set_value(transm_index,'Risk','HIGH')
+      #  transm.SRC_Risk.loc[[transm_index]] = 'HIGH'
+      transm.set_value(transm_index,'SRC_Risk','HIGH')
     else:
     
         # the SRC transmitter could be either person A or person B in the relationship. 
         # If they are person A and person A's Individual Properties are Risk-MEDIUM, then they are MEDIUM risk. Call this Condition A.
-        condition_A_to_be_MEDIUM_Risk = sum((rels.A_ID == curr_transm['SRC_ID']) & (SRC_rels.A_IndividualProperties.str.contains("MEDIUM")))>0
+        condition_A_to_be_MEDIUM_Risk = sum((rels.A_ID == curr_SRC_ID) & (SRC_rels.A_IndividualProperties.str.contains("MEDIUM")))>0
         
         # If they are person B and person B's Individual Properties are Risk-MEDIUM, then they are MEDIUM risk. Call this Condition B.
-        condition_B_to_be_MEDIUM_Risk = sum((rels.B_ID == curr_transm['SRC_ID']) & (SRC_rels.B_IndividualProperties.str.contains("MEDIUM")))>0
+        condition_B_to_be_MEDIUM_Risk = sum((rels.B_ID == curr_SRC_ID) & (SRC_rels.B_IndividualProperties.str.contains("MEDIUM")))>0
         
         if condition_A_to_be_MEDIUM_Risk | condition_B_to_be_MEDIUM_Risk:
-            #transm.Risk.loc[[transm_index]] = 'MEDIUM'
-            transm.set_value(transm_index,'Risk','MEDIUM')
+            #transm.SRC_Risk.loc[[transm_index]] = 'MEDIUM'
+            transm.set_value(transm_index,'SRC_Risk','MEDIUM')
         else:
-            #transm.Risk.loc[[transm_index]] = 'LOW'
-             transm.set_value(transm_index,'Risk','LOW')
-    if transm_index%100 == 0:
-        print("100 transmissions up to %d took %f seconds" % (transm_index, time.time() - iter_start_time))
-   
+            #transm.SRC_Risk.loc[[transm_index]] = 'LOW'
+             transm.set_value(transm_index,'SRC_Risk','LOW')
+             
+        
+    # assign IP to DEST individual
+    
+    DEST_rels = rels[((rels.A_ID == curr_DEST_ID) | (rels.B_ID == curr_DEST_ID))]
+    
+    # determine if they have been in a COMMERCIAL relship prior to the date of transmission:
+    DEST_commercial_rels = DEST_rels[(DEST_rels['Rel_type (0 = TRANSITORY; 1 = INFORMAL; 2 = MARITAL; 3 = COMMERCIAL)']==3) & (DEST_rels['YEAR'] <= curr_transm_yr)]
 
-# repeat for TO individual.
+    if DEST_commercial_rels.shape[0]>0:
+      #  transm.DEST_Risk.loc[[transm_index]] = 'HIGH'
+      transm.set_value(transm_index,'DEST_Risk','HIGH')
+    else:
+    
+        # the DEST transmitter could be either person A or person B in the relationship. 
+        # If they are person A and person A's Individual Properties are Risk-MEDIUM, then they are MEDIUM risk. Call this Condition A.
+        condition_A_to_be_MEDIUM_Risk = sum((rels.A_ID == curr_DEST_ID) & (DEST_rels.A_IndividualProperties.str.contains("MEDIUM")))>0
+        
+        # If they are person B and person B's Individual Properties are Risk-MEDIUM, then they are MEDIUM risk. Call this Condition B.
+        condition_B_to_be_MEDIUM_Risk = sum((rels.B_ID == curr_DEST_ID) & (DEST_rels.B_IndividualProperties.str.contains("MEDIUM")))>0
+        
+        if condition_A_to_be_MEDIUM_Risk | condition_B_to_be_MEDIUM_Risk:
+            #transm.DEST_Risk.loc[[transm_index]] = 'MEDIUM'
+            transm.set_value(transm_index,'DEST_Risk','MEDIUM')
+        else:
+            #transm.DEST_Risk.loc[[transm_index]] = 'LOW'
+             transm.set_value(transm_index,'DEST_Risk','LOW')         
+             
+             
+    if transm_index%how_often_to_report_time == 0:
+        print("%d transmissions up to row %d took %f seconds" % (how_often_to_report_time, transm_index, time.time() - iter_start_time))
+   
 
 # --- not yet FSW/client --- currently FSW/client --- no longer FSW/client ---
 # if transmission happens any time after "currently FSW", consider it to come from a FSW
@@ -117,3 +148,5 @@ for transm_index, curr_transm in transm.iterrows():
 # check how long it took to do one dataset
 print("Total script runtime was %f seconds" % (time.time() - script_start_time))
 
+print("Saving IP cross-referenced transmission dataset to filename " + save_transmission_dataset_filename)
+transm.to_pickle(save_transmission_dataset_filename)  # where to save it, usually as a .pkl
