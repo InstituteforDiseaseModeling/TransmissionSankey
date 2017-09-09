@@ -44,17 +44,23 @@ save_transmission_dataset_filename = "Transmission_with_RiskIP.pkl"
 how_often_to_report_time = 1 # number of transmission events to record before reporting time
 
 script_start_time = time.time()
+progress_tracker = 0
 
 
 # load transmission report  as a pandas data frame
 transm = pd.read_csv(os.path.join(base_directory_path, curr_folder, 'TransmissionReport.csv'))
-#print(transm.shape)
 
 # keep only years >=2015 and <2020
 transm = transm[(transm.YEAR >= 2015) & (transm.YEAR < 2020)]
 
 # keep only relevant columns
 transm = transm[['YEAR','NODE_ID','SRC_ID','SRC_GENDER','SRC_AGE','SRC_CIRCUMSIZED','SRC_INF_AGE', 'DEST_ID','DEST_GENDER','DEST_AGE','DEST_CIRCUMSIZED']]
+
+transm = transm.head(10)
+
+#global rels
+#global number_of_transmissions_to_analyze
+number_of_transmissions_to_analyze = transm.shape[0]
 
 # load relationship CSV
 rels = pd.read_csv(os.path.join(base_directory_path, curr_folder, 'RelationshipStart.csv'))
@@ -67,18 +73,20 @@ rels = rels[['Rel_start_time','Rel_type (0 = TRANSITORY; 1 = INFORMAL; 2 = MARIT
 rels['YEAR'] = rels.Rel_start_time/365 + 1960.5
 rels = rels[(rels.YEAR  < 2020)]
 
-transm['SRC_Risk'] = 'SRC_TBD'
-transm['DEST_Risk'] = 'DEST_TBD'
+#transm['SRC_Risk'] = 'SRC_TBD'
+#transm['DEST_Risk'] = 'DEST_TBD'
 
 # for each transmission event in 2015-2020,
-for transm_index, curr_transm in transm.iterrows():
-   
-    print(transm_index)    
-    if transm_index%how_often_to_report_time == 0:
-        iter_start_time = time.time()
+def determine_risk_IP_for_SRC(curr_transm):
+     
+    iter_start_time = time.time()
+    global progress_tracker 
+    global script_start_time
+    global rels
+    global number_of_transmissions_to_analyze
+    
     # take the FROM individual ID and year of transmission event
     curr_SRC_ID = curr_transm['SRC_ID']
-    curr_DEST_ID = curr_transm['DEST_ID']
     curr_transm_yr = curr_transm['YEAR']
     
     
@@ -91,7 +99,8 @@ for transm_index, curr_transm in transm.iterrows():
 
     if SRC_commercial_rels.shape[0]>0:
       #  transm.SRC_Risk.loc[[transm_index]] = 'HIGH'
-      transm.set_value(transm_index,'SRC_Risk','HIGH')
+      #  transm.set_value(transm_index,'SRC_Risk','HIGH')
+      curr_Risk = 'HIGH'
     else:
     
         # the SRC transmitter could be either person A or person B in the relationship. 
@@ -103,12 +112,35 @@ for transm_index, curr_transm in transm.iterrows():
         
         if condition_A_to_be_MEDIUM_Risk | condition_B_to_be_MEDIUM_Risk:
             #transm.SRC_Risk.loc[[transm_index]] = 'MEDIUM'
-            transm.set_value(transm_index,'SRC_Risk','MEDIUM')
+            #transm.set_value(transm_index,'SRC_Risk','MEDIUM')
+            curr_Risk = 'MEDIUM'
         else:
             #transm.SRC_Risk.loc[[transm_index]] = 'LOW'
-             transm.set_value(transm_index,'SRC_Risk','LOW')
-             
+            #transm.set_value(transm_index,'SRC_Risk','LOW')
+             curr_Risk = 'LOW'
         
+        progress_tracker = progress_tracker + 0.5
+        cumulative_percent_complete = (100*progress_tracker/number_of_transmissions_to_analyze)
+        computation_time_so_far = time.time() - script_start_time
+        estimated_total_computation_time = computation_time_so_far/(cumulative_percent_complete/100)
+        estimated_remaining_computation_time = estimated_total_computation_time*((100-cumulative_percent_complete)/100)
+        
+        
+        print("Current SRC took %f seconds" % ( time.time() - iter_start_time))  
+        print("Analysis is %f percent complete" % cumulative_percent_complete)  
+        print("Estimated remaining time is %f seconds or %f hours" % (estimated_remaining_computation_time, estimated_remaining_computation_time/60/60))  
+        return curr_Risk
+    
+
+def determine_risk_IP_for_DEST(curr_transm):
+
+    iter_start_time = time.time()
+    global progress_tracker 
+    global script_start_time
+    global rels
+    global number_of_transmissions_to_analyze
+    
+    curr_DEST_ID = curr_transm['DEST_ID']    
     # assign IP to DEST individual
     
     DEST_rels = rels[((rels.A_ID == curr_DEST_ID) | (rels.B_ID == curr_DEST_ID))]
@@ -118,7 +150,8 @@ for transm_index, curr_transm in transm.iterrows():
 
     if DEST_commercial_rels.shape[0]>0:
       #  transm.DEST_Risk.loc[[transm_index]] = 'HIGH'
-      transm.set_value(transm_index,'DEST_Risk','HIGH')
+      # transm.set_value(transm_index,'DEST_Risk','HIGH')
+      curr_Risk = 'HIGH'
     else:
     
         # the DEST transmitter could be either person A or person B in the relationship. 
@@ -130,20 +163,28 @@ for transm_index, curr_transm in transm.iterrows():
         
         if condition_A_to_be_MEDIUM_Risk | condition_B_to_be_MEDIUM_Risk:
             #transm.DEST_Risk.loc[[transm_index]] = 'MEDIUM'
-            transm.set_value(transm_index,'DEST_Risk','MEDIUM')
+            #transm.set_value(transm_index,'DEST_Risk','MEDIUM')
+            curr_Risk = 'MEDIUM'
         else:
             #transm.DEST_Risk.loc[[transm_index]] = 'LOW'
-             transm.set_value(transm_index,'DEST_Risk','LOW')         
+            #transm.set_value(transm_index,'DEST_Risk','LOW')     
+            curr_Risk = 'LOW'             
              
-             
-    if transm_index%how_often_to_report_time == 0:
-        print("%d transmissions up to row %d took %f seconds" % (how_often_to_report_time, transm_index, time.time() - iter_start_time))
+        progress_tracker = progress_tracker + 0.5
+        cumulative_percent_complete = (100*progress_tracker/number_of_transmissions_to_analyze)
+        computation_time_so_far = time.time() - script_start_time
+        estimated_total_computation_time = computation_time_so_far/(cumulative_percent_complete/100)
+        estimated_remaining_computation_time = estimated_total_computation_time*((100-cumulative_percent_complete)/100)
+        
+        
+        print("Current SRC took %f seconds" % ( time.time() - iter_start_time))  
+        print("Analysis is %f percent complete" % cumulative_percent_complete)  
+        print("Estimated remaining time is %f seconds or %f hours" % (estimated_remaining_computation_time, estimated_remaining_computation_time/60/60)) 
+        return curr_Risk
    
 
-# --- not yet FSW/client --- currently FSW/client --- no longer FSW/client ---
-# if transmission happens any time after "currently FSW", consider it to come from a FSW
-# because that person would report that they have previously exchanged $ for FSW
-
+transm['SRC_Risk'] = transm.apply(determine_risk_IP_for_SRC, axis=1)
+transm['DEST_Risk'] = transm.apply(determine_risk_IP_for_DEST, axis=1)
 
 # check how long it took to do one dataset
 print("Total script runtime was %f seconds" % (time.time() - script_start_time))
