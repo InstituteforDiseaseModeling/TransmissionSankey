@@ -38,6 +38,7 @@ import time as time
 #from os import listdir
 #from os import path
 
+TEST_MODE = True
 curr_folder = 'output_TRANSMISSION_AND_RELATIONSHIPS'
 base_directory_path = 'Z:/mint/Dropbox (IDM)/research/HIV/2017/Kenya_non_resident_comparison/modeling'
 save_transmission_dataset_filename = "Transmission_with_RiskIP.pkl"
@@ -56,7 +57,9 @@ transm = transm[(transm.YEAR >= 2015) & (transm.YEAR < 2020)]
 # keep only relevant columns
 transm = transm[['YEAR','NODE_ID','SRC_ID','SRC_GENDER','SRC_AGE','SRC_CIRCUMSIZED','SRC_INF_AGE', 'DEST_ID','DEST_GENDER','DEST_AGE','DEST_CIRCUMSIZED']]
 
-transm = transm.head(10)
+if TEST_MODE:
+    transm = transm.head(10)
+    save_transmission_dataset_filename = "test.pkl"
 
 #global rels
 #global number_of_transmissions_to_analyze
@@ -141,7 +144,7 @@ def determine_risk_IP_for_DEST(curr_transm):
     global number_of_transmissions_to_analyze
     
     curr_DEST_ID = curr_transm['DEST_ID']    
-    # assign IP to DEST individual
+    curr_transm_yr = curr_transm['YEAR']
     
     DEST_rels = rels[((rels.A_ID == curr_DEST_ID) | (rels.B_ID == curr_DEST_ID))]
     
