@@ -37,7 +37,7 @@ import time as time
 #from os import listdir
 #from os import path
 
-TEST_MODE = False
+TEST_MODE = True
 curr_folder = 'output_TRANSMISSION_AND_RELATIONSHIPS'
 base_directory_path = 'Z:/mint/Dropbox (IDM)/research/HIV/2017/Kenya_non_resident_comparison/modeling'
 save_transmission_dataset_filename = "Transmission_with_RiskIP.pkl"
@@ -64,7 +64,7 @@ else:
     rels = pd.read_csv(os.path.join(base_directory_path, curr_folder, 'RelationshipStart.csv'))
 
     # keep only relevant columns
-    rels = rels[['NODE_ID','Rel_start_time','Rel_type (0 = TRANSITORY; 1 = INFORMAL; 2 = MARITAL; 3 = COMMERCIAL)','Current_node_ID', 'A_ID', 'B_ID', 'A_IndividualProperties', 'B_IndividualProperties']]
+    rels = rels[['Rel_start_time','Rel_type (0 = TRANSITORY; 1 = INFORMAL; 2 = MARITAL; 3 = COMMERCIAL)','Current_node_ID', 'A_ID', 'B_ID', 'A_IndividualProperties', 'B_IndividualProperties']]
 
     # the model logs time only in days. Translate this to years using 1960.5 as Start_Year
     # Note, verify that this Start_Year is correct by checking config.json
@@ -151,7 +151,7 @@ def determine_risk_IP_for_SRC(curr_transm):
         print("Current SRC took %f seconds" % ( time.time() - iter_start_time))  
         print("Analysis is %f percent complete" % cumulative_percent_complete)  
         print("Estimated remaining time is %f seconds or %f hours" % (estimated_remaining_computation_time, estimated_remaining_computation_time/60/60))  
-        return curr_Risk
+    return curr_Risk
     
 
 def determine_risk_IP_for_DEST(curr_transm):
@@ -204,7 +204,7 @@ def determine_risk_IP_for_DEST(curr_transm):
         print("Current SRC took %f seconds" % ( time.time() - iter_start_time))  
         print("Analysis is %f percent complete" % cumulative_percent_complete)  
         print("Estimated remaining time is %f seconds or %f hours" % (estimated_remaining_computation_time, estimated_remaining_computation_time/60/60)) 
-        return curr_Risk
+    return curr_Risk
    
 
 transm['SRC_Risk'] = transm.apply(determine_risk_IP_for_SRC, axis=1)
