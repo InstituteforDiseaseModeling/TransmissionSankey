@@ -37,7 +37,8 @@ import time as time
 #from os import listdir
 #from os import path
 
-TEST_MODE = True
+TEST_MODE = False
+VERBOSE_MODE = False
 curr_folder = 'output_TRANSMISSION_AND_RELATIONSHIPS'
 base_directory_path = 'Z:/mint/Dropbox (IDM)/research/HIV/2017/Kenya_non_resident_comparison/modeling'
 save_transmission_dataset_filename = "Transmission_with_RiskIP.pkl"
@@ -147,10 +148,11 @@ def determine_risk_IP_for_SRC(curr_transm):
         estimated_total_computation_time = computation_time_so_far/(cumulative_percent_complete/100)
         estimated_remaining_computation_time = estimated_total_computation_time*((100-cumulative_percent_complete)/100)
         
-        
+    if VERBOSE_MODE:
         print("Current SRC took %f seconds" % ( time.time() - iter_start_time))  
         print("Analysis is %f percent complete" % cumulative_percent_complete)  
         print("Estimated remaining time is %f seconds or %f hours" % (estimated_remaining_computation_time, estimated_remaining_computation_time/60/60))  
+        
     return curr_Risk
     
 
@@ -200,7 +202,7 @@ def determine_risk_IP_for_DEST(curr_transm):
         estimated_total_computation_time = computation_time_so_far/(cumulative_percent_complete/100)
         estimated_remaining_computation_time = estimated_total_computation_time*((100-cumulative_percent_complete)/100)
         
-        
+    if VERBOSE_MODE:    
         print("Current SRC took %f seconds" % ( time.time() - iter_start_time))  
         print("Analysis is %f percent complete" % cumulative_percent_complete)  
         print("Estimated remaining time is %f seconds or %f hours" % (estimated_remaining_computation_time, estimated_remaining_computation_time/60/60)) 
@@ -209,6 +211,16 @@ def determine_risk_IP_for_DEST(curr_transm):
 
 transm['SRC_Risk'] = transm.apply(determine_risk_IP_for_SRC, axis=1)
 transm['DEST_Risk'] = transm.apply(determine_risk_IP_for_DEST, axis=1)
+
+
+# Create a contingency table  of NODE_ID vs. SRC_Risk
+pd.crosstab(transm.NODE_ID, transm.SRC_Risk).to_csv('NODE_ID_vs_SRC_Risk.csv', sep=',')
+
+# Create a contingency table  of SRC_Risk vs. DEST_Risk
+pd.crosstab(transm.SRC_Risk, transm.DEST_Risk).to_csv('SRC_Risk_vs_DEST_Risk.csv', sep=',')
+
+# Create a contingency table  of DEST_Risk vs. NODE_ID
+pd.crosstab(transm.DEST_Risk, transm.NODE_ID).to_csv('DEST_Risk_vs_NODE_ID.csv', sep=',')
 
 # check how long it took to do one dataset
 print("Total script runtime was %f seconds" % (time.time() - script_start_time))
