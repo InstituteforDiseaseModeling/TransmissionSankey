@@ -38,7 +38,7 @@ import time as time
 #from os import path
 
 TEST_MODE = False
-VERBOSE_MODE = False
+VERBOSE_MODE = True
 curr_folder = 'output_TRANSMISSION_AND_RELATIONSHIPS'
 base_directory_path = 'Z:/mint/Dropbox (IDM)/research/HIV/2017/Kenya_non_resident_comparison/modeling'
 save_transmission_dataset_filename = "Transmission_with_RiskIP.pkl"
@@ -142,13 +142,15 @@ def determine_risk_IP_for_SRC(curr_transm):
             #transm.set_value(transm_index,'SRC_Risk','LOW')
              curr_Risk = 'LOW'
         
+    if VERBOSE_MODE:
+        
         progress_tracker = progress_tracker + 0.5
         cumulative_percent_complete = (100*progress_tracker/number_of_transmissions_to_analyze)
         computation_time_so_far = time.time() - script_start_time
         estimated_total_computation_time = computation_time_so_far/(cumulative_percent_complete/100)
         estimated_remaining_computation_time = estimated_total_computation_time*((100-cumulative_percent_complete)/100)
         
-    if VERBOSE_MODE:
+    
         print("Current SRC took %f seconds" % ( time.time() - iter_start_time))  
         print("Analysis is %f percent complete" % cumulative_percent_complete)  
         print("Estimated remaining time is %f seconds or %f hours" % (estimated_remaining_computation_time, estimated_remaining_computation_time/60/60))  
@@ -196,13 +198,15 @@ def determine_risk_IP_for_DEST(curr_transm):
             #transm.set_value(transm_index,'DEST_Risk','LOW')     
             curr_Risk = 'LOW'             
              
+    if VERBOSE_MODE:  
+        
         progress_tracker = progress_tracker + 0.5
         cumulative_percent_complete = (100*progress_tracker/number_of_transmissions_to_analyze)
         computation_time_so_far = time.time() - script_start_time
         estimated_total_computation_time = computation_time_so_far/(cumulative_percent_complete/100)
         estimated_remaining_computation_time = estimated_total_computation_time*((100-cumulative_percent_complete)/100)
         
-    if VERBOSE_MODE:    
+  
         print("Current SRC took %f seconds" % ( time.time() - iter_start_time))  
         print("Analysis is %f percent complete" % cumulative_percent_complete)  
         print("Estimated remaining time is %f seconds or %f hours" % (estimated_remaining_computation_time, estimated_remaining_computation_time/60/60)) 
