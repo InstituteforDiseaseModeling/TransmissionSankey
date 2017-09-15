@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0065)http://127.0.0.1:27908/custom/googleVis/SankeyID18f83ec0305a.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SankeyID18f83ec0305a</title>
+
+<style type="text/css">
+body {
+  color: #444444;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 75%;
+  }
+  a {
+  color: #4D87C7;
+  text-decoration: none;
+}
+</style>
+<script type="text/javascript" src="./NonResidentSankey_files/saved_resource"></script><link type="text/css" href="./NonResidentSankey_files/ui+en.css" rel="stylesheet"><script type="text/javascript" src="./NonResidentSankey_files/d3,d3sankey,format+en,default+en,ui+en,sankey+en.I.js.download"></script><link href="./NonResidentSankey_files/tooltip.css" rel="stylesheet" type="text/css"></head>
+<body>
+ <!-- Sankey generated in R 3.3.0 by googleVis 0.6.0 package -->
+<!-- Thu Sep 14 13:38:27 2017 -->
+
+
+<!-- jsHeader -->
+<script type="text/javascript">
+ 
+// jsData 
+function gvisDataSankeyID18f83ec0305a () {
+var data = new google.visualization.DataTable();
+var datajson =
+[
+ [
+ "high-risk rec.",
+"Siaya ",
+7168 
+],
+[
+ "medium-risk recipient",
+"Siaya ",
+24983.8 
+],
+[
+ "low-risk recipient",
+"Siaya ",
+17416.4 
+],
+[
+ "high-risk rec.",
+"Homa Bay ",
+3878 
+],
+[
+ "medium-risk recipient",
+"Homa Bay ",
+30127.6 
+],
+[
+ "low-risk recipient",
+"Homa Bay ",
+22665.4 
+],
+[
+ "high-risk rec.",
+"Kisumu ",
+11639.2 
+],
+[
+ "medium-risk recipient",
+"Kisumu ",
+16768 
+],
+[
+ "low-risk recipient",
+"Kisumu ",
+18510.4 
+],
+[
+ "high-risk rec.",
+"Migori ",
+8084.6 
+],
+[
+ "medium-risk recipient",
+"Migori ",
+10361 
+],
+[
+ "low-risk recipient",
+"Migori ",
+23350 
+],
+[
+ "high-risk rec.",
+"Nyamira ",
+1103 
+],
+[
+ "medium-risk recipient",
+"Nyamira ",
+871.6 
+],
+[
+ "low-risk recipient",
+"Nyamira ",
+4012.2 
+],
+[
+ "high-risk rec.",
+"Kisii ",
+3829.2 
+],
+[
+ "medium-risk recipient",
+"Kisii ",
+1692.2 
+],
+[
+ "low-risk recipient",
+"Kisii ",
+6238.8 
+],
+[
+ "Siaya",
+"high-risk tr.",
+8692.2 
+],
+[
+ "Homa Bay",
+"high-risk tr.",
+5371.8 
+],
+[
+ "Kisumu",
+"high-risk tr.",
+14211.4 
+],
+[
+ "Migori",
+"high-risk tr.",
+11062 
+],
+[
+ "Nyamira",
+"high-risk tr.",
+1879.6 
+],
+[
+ "Kisii",
+"high-risk tr.",
+5437.4 
+],
+[
+ "Siaya",
+"medium-risk transmitter",
+32220.4 
+],
+[
+ "Homa Bay",
+"medium-risk transmitter",
+40013.6 
+],
+[
+ "Kisumu",
+"medium-risk transmitter",
+23118.6 
+],
+[
+ "Migori",
+"medium-risk transmitter",
+17032.8 
+],
+[
+ "Nyamira",
+"medium-risk transmitter",
+1507.6 
+],
+[
+ "Kisii",
+"medium-risk transmitter",
+2711 
+],
+[
+ "Siaya",
+"low-risk transmitter",
+8655.6 
+],
+[
+ "Homa Bay",
+"low-risk transmitter",
+11285.6 
+],
+[
+ "Kisumu",
+"low-risk transmitter",
+9587.6 
+],
+[
+ "Migori",
+"low-risk transmitter",
+13700.8 
+],
+[
+ "Nyamira",
+"low-risk transmitter",
+2599.6 
+],
+[
+ "Kisii",
+"low-risk transmitter",
+3611.8 
+],
+[
+ "high-risk tr.",
+"high-risk rec.",
+17278.6 
+],
+[
+ "medium-risk transmitter",
+"high-risk rec.",
+14169.4 
+],
+[
+ "low-risk transmitter",
+"high-risk rec.",
+4254 
+],
+[
+ "high-risk tr.",
+"medium-risk recipient",
+12758.4 
+],
+[
+ "medium-risk transmitter",
+"medium-risk recipient",
+51348.2 
+],
+[
+ "low-risk transmitter",
+"medium-risk recipient",
+20697.6 
+],
+[
+ "high-risk tr.",
+"low-risk recipient",
+16617.4 
+],
+[
+ "medium-risk transmitter",
+"low-risk recipient",
+51086.4 
+],
+[
+ "low-risk transmitter",
+"low-risk recipient",
+24489.4 
+] 
+];
+data.addColumn('string','From');
+data.addColumn('string','To');
+data.addColumn('number','Freq');
+data.addRows(datajson);
+return(data);
+}
+ 
+// jsDrawChart
+function drawChartSankeyID18f83ec0305a() {
+var data = gvisDataSankeyID18f83ec0305a();
+var options = {};
+options["width"] = [400];
+options["height"] = [250];
+options["sankey"] = {iterations:0,link:{color:{fill:'lightblue'}}};
+
+
+    var chart = new google.visualization.Sankey(
+    document.getElementById('SankeyID18f83ec0305a')
+    );
+    chart.draw(data,options);
+    
+
+}
+  
+ 
+// jsDisplayChart
+(function() {
+var pkgs = window.__gvisPackages = window.__gvisPackages || [];
+var callbacks = window.__gvisCallbacks = window.__gvisCallbacks || [];
+var chartid = "sankey";
+  
+// Manually see if chartid is in pkgs (not all browsers support Array.indexOf)
+var i, newPackage = true;
+for (i = 0; newPackage && i < pkgs.length; i++) {
+if (pkgs[i] === chartid)
+newPackage = false;
+}
+if (newPackage)
+  pkgs.push(chartid);
+  
+// Add the drawChart function to the global list of callbacks
+callbacks.push(drawChartSankeyID18f83ec0305a);
+})();
+function displayChartSankeyID18f83ec0305a() {
+  var pkgs = window.__gvisPackages = window.__gvisPackages || [];
+  var callbacks = window.__gvisCallbacks = window.__gvisCallbacks || [];
+  window.clearTimeout(window.__gvisLoad);
+  // The timeout is set to 100 because otherwise the container div we are
+  // targeting might not be part of the document yet
+  window.__gvisLoad = setTimeout(function() {
+  var pkgCount = pkgs.length;
+  google.load("visualization", "1", { packages:pkgs, callback: function() {
+  if (pkgCount != pkgs.length) {
+  // Race condition where another setTimeout call snuck in after us; if
+  // that call added a package, we must not shift its callback
+  return;
+}
+while (callbacks.length > 0)
+callbacks.shift()();
+} });
+}, 100);
+}
+ 
+// jsFooter
+</script>
+ 
+<!-- jsChart -->  
+<script type="text/javascript" src="./NonResidentSankey_files/jsapi"></script>
+ 
+<!-- divChart -->
+  
+<div id="SankeyID18f83ec0305a" style="width: 400; height: 250;"><div style="position: relative;"><div dir="ltr" style="position: relative; width: 400px; height: 250px;"><div aria-label="A chart." style="position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;"><svg width="400" height="250" aria-label="A chart." style="overflow: hidden;"><defs id="defs"></defs><g><path d="M270,0C310,0,350,0,390,0L390,6.57152770529677C350,6.57152770529677,310,6.57152770529677,270,6.57152770529677Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,42.73112194956826C310,42.73112194956826,350,6.57152770529677,390,6.57152770529677L390,29.4763454903963C350,29.4763454903963,310,65.6359397346678,270,65.6359397346678Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,130.47849218192434C310,130.47849218192434,350,29.4763454903963,390,29.4763454903963L390,45.443470926575245C350,45.443470926575245,310,146.44561761810328,270,146.44561761810328Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,6.57152770529677C310,6.57152770529677,350,55.443470926575245,390,55.443470926575245L390,58.99877009526119C350,58.99877009526119,310,10.126826873982719,270,10.126826873982719Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,65.6359397346678C310,65.6359397346678,350,58.99877009526119,390,58.99877009526119L390,86.61935576687098C350,86.61935576687098,310,93.25652540627759,270,93.25652540627759Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,146.44561761810328C310,146.44561761810328,350,86.61935576687098,390,86.61935576687098L390,107.3986950597886C350,107.3986950597886,310,167.22495691102088,270,167.22495691102088Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,10.126826873982719C310,10.126826873982719,350,117.3986950597886,390,117.3986950597886L390,128.06935985715052C350,128.06935985715052,310,20.79749167134463,270,20.79749167134463Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,93.25652540627758C310,93.25652540627758,350,128.06935985715052,390,128.06935985715052L390,143.44204073918402C350,143.44204073918402,310,108.6292062883111,270,108.6292062883111Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,167.22495691102088C310,167.22495691102088,350,143.44204073918402,390,143.44204073918402L390,160.41213092279526C350,160.41213092279526,310,184.19504709463212,270,184.19504709463212Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,20.79749167134463C310,20.79749167134463,350,170.41213092279526,390,170.41213092279526L390,177.82398539911253C350,177.82398539911253,310,28.20934614766191,270,28.20934614766191Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,108.6292062883111C310,108.6292062883111,350,177.82398539911253,390,177.82398539911253L390,187.3228133224635C350,187.3228133224635,310,118.12803421166208,270,118.12803421166208Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,184.19504709463212C310,184.19504709463212,350,187.3228133224635,390,187.3228133224635L390,208.72978485129715C350,208.72978485129715,310,205.60201862346577,270,205.60201862346577Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,28.20934614766191C310,28.20934614766191,350,218.72978485129715,390,218.72978485129715L390,219.74100067983264C350,219.74100067983264,310,29.220561976197395,270,29.220561976197395Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,118.12803421166208C310,118.12803421166208,350,219.74100067983264,390,219.74100067983264L390,220.54007204533718C350,220.54007204533718,310,118.92710557716664,270,118.92710557716664Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,205.60201862346577C310,205.60201862346577,350,220.54007204533718,390,220.54007204533718L390,224.2184040011396C350,224.2184040011396,310,209.28035057926817,270,209.28035057926817Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,29.220561976197395C310,29.220561976197395,350,234.21840400113962,390,234.21840400113962L390,237.7289639745105C350,237.7289639745105,310,32.73112194956826,270,32.73112194956826Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,118.92710557716664C310,118.92710557716664,350,237.7289639745105,390,237.7289639745105L390,239.2803505792682C350,239.2803505792682,310,120.47849218192434,270,120.47849218192434Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M270,209.2803505792682C310,209.2803505792682,350,239.2803505792682,390,239.2803505792682L390,245C350,245,310,215,270,215Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,0C50,0,90,0,130,0L130,7.968894129461578C90,7.968894129461578,50,7.968894129461578,10,7.968894129461578Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,55.44347092657525C50,55.44347092657525,90,7.968894129461578,130,7.968894129461578L130,12.893689403919334C90,12.893689403919334,50,60.36826620103301,10,60.36826620103301Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,117.3986950597886C50,117.3986950597886,90,12.893689403919334,130,12.893689403919334L130,25.922513180573144C90,25.922513180573144,50,130.4275188364424,10,130.4275188364424Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,170.41213092279526C50,170.41213092279526,90,25.922513180573144,130,25.922513180573144L130,36.064008643183755C90,36.064008643183755,50,180.55362638540586,10,180.55362638540586Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,218.72978485129715C50,218.72978485129715,90,36.064008643183755,130,36.064008643183755L130,37.78720109224567C90,37.78720109224567,50,220.45297730035907,10,220.45297730035907Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,234.21840400113962C50,234.21840400113962,90,37.78720109224567,130,37.78720109224567L130,42.77213758007779C90,42.77213758007779,50,239.20334048897175,10,239.20334048897175Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,7.968894129461578C50,7.968894129461578,90,52.772137580077796,130,52.772137580077796L130,82.3113746442162C90,82.3113746442162,50,37.50813119359998,10,37.50813119359998Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,60.36826620103301C50,60.36826620103301,90,82.3113746442162,130,82.3113746442162L130,118.99531451428635C90,118.99531451428635,50,97.05220607110316,10,97.05220607110316Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,130.4275188364424C50,130.4275188364424,90,118.99531451428635,130,118.99531451428635L130,140.19014158008906C90,140.19014158008906,50,151.62234590224512,10,151.62234590224512Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,180.55362638540586C50,180.55362638540586,90,140.19014158008906,130,140.19014158008906L130,155.80558760391423C90,155.80558760391423,50,196.16907240923103,10,196.16907240923103Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,220.45297730035907C50,220.45297730035907,90,155.80558760391426,130,155.80558760391426L130,157.18773536737763C90,157.18773536737763,50,221.83512506382243,10,221.83512506382243Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,239.20334048897175C50,239.20334048897175,90,157.18773536737763,130,157.18773536737763L130,159.6731443530165C90,159.6731443530165,50,241.68874947461063,10,241.68874947461063Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,37.50813119359998C50,37.50813119359998,90,169.6731443530165,130,169.6731443530165L130,177.6084840859918C90,177.6084840859918,50,45.443470926575245,10,45.443470926575245Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,97.05220607110316C50,97.05220607110316,90,177.6084840859918,130,177.6084840859918L130,187.95497307467724C90,187.95497307467724,50,107.3986950597886,10,107.3986950597886Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,151.62234590224512C50,151.62234590224512,90,187.9549730746772,130,187.9549730746772L130,196.74475809522733C90,196.74475809522733,50,160.41213092279526,10,160.41213092279526Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,196.16907240923103C50,196.16907240923103,90,196.74475809522735,130,196.74475809522735L130,209.30547053729347C90,209.30547053729347,50,208.72978485129715,10,208.72978485129715Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,221.83512506382243C50,221.83512506382243,90,209.30547053729347,130,209.30547053729347L130,211.68874947461063C90,211.68874947461063,50,224.2184040011396,10,224.2184040011396Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M10,241.68874947461063C50,241.68874947461063,90,211.68874947461063,130,211.68874947461063L130,214.99999999999997C90,214.99999999999997,50,244.99999999999997,10,244.99999999999997Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M140,0C180,0,220,0,260,0L260,15.8407922166212C220,15.8407922166212,180,15.8407922166212,140,15.8407922166212Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M140,52.772137580077796C180,52.772137580077796,220,15.8407922166212,260,15.8407922166212L260,28.831110948126785C220,28.831110948126785,180,65.76245631158338,140,65.76245631158338Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M140,169.6731443530165C180,169.6731443530165,220,28.831110948126785,260,28.831110948126785L260,32.731121949568255C220,32.731121949568255,180,173.57315535445798,140,173.57315535445798Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M140,15.8407922166212C180,15.8407922166212,220,42.73112194956826,260,42.73112194956826L260,54.427854521451394C220,54.427854521451394,180,27.537524788504335,140,27.537524788504335Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M140,65.76245631158338C180,65.76245631158338,220,54.427854521451394,260,54.427854521451394L260,101.50320593287991C220,101.50320593287991,180,112.83780772301189,140,112.83780772301189Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M140,173.57315535445798C180,173.57315535445798,220,101.50320593287991,260,101.50320593287991L260,120.47849218192434C220,120.47849218192434,180,192.5484416035024,140,192.5484416035024Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M140,27.537524788504335C180,27.537524788504335,220,130.47849218192434,260,130.47849218192434L260,145.7131049734978C220,145.7131049734978,180,42.772137580077796,140,42.772137580077796Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M140,112.8378077230119C180,112.8378077230119,220,145.7131049734978,260,145.7131049734978L260,192.5484416035024C220,192.5484416035024,180,159.6731443530165,140,159.6731443530165Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path><path d="M140,192.5484416035024C180,192.5484416035024,220,192.5484416035024,260,192.5484416035024L260,215C220,215,180,215,140,215Z" stroke="none" stroke-width="0" fill-opacity="0.6" fill="#add8e6"></path></g><g><text text-anchor="end" x="254" y="19.86556097478413" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">high-risk rec.</text><text text-anchor="end" x="384" y="26.221735463287622" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">Siaya </text><text text-anchor="end" x="254" y="85.1048070657463" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">medium-risk recipient</text><text text-anchor="end" x="254" y="176.23924609096215" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">low-risk recipient</text><text text-anchor="end" x="384" y="84.92108299318193" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">Homa Bay </text><text text-anchor="end" x="384" y="142.40541299129194" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">Kisumu </text><text text-anchor="end" x="384" y="193.0709578870462" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">Migori </text><text text-anchor="end" x="384" y="224.9740944262184" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">Nyamira </text><text text-anchor="end" x="384" y="243.1092020005698" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">Kisii </text><text text-anchor="start" x="16" y="26.221735463287626" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">Siaya</text><text text-anchor="start" x="146" y="24.886068790038898" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">high-risk tr.</text><text text-anchor="start" x="16" y="84.92108299318193" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">Homa Bay</text><text text-anchor="start" x="16" y="142.40541299129194" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">Kisumu</text><text text-anchor="start" x="16" y="193.0709578870462" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">Migori</text><text text-anchor="start" x="16" y="224.9740944262184" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">Nyamira</text><text text-anchor="start" x="16" y="243.1092020005698" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">Kisii</text><text text-anchor="start" x="146" y="109.72264096654715" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">medium-risk transmitter</text><text text-anchor="start" x="146" y="195.83657217650824" font-family="sans-serif" font-size="10" stroke="none" stroke-width="0" fill="#000000">low-risk transmitter</text><rect x="260" y="0" width="10" height="32.73112194956826" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#4285f4"></rect><rect x="390" y="0" width="10" height="45.443470926575245" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#5e97f5"></rect><rect x="260" y="42.73112194956826" width="10" height="77.74737023235608" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#db4437"></rect><rect x="260" y="130.47849218192434" width="10" height="84.52150781807565" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#e06055"></rect><rect x="390" y="55.443470926575245" width="10" height="51.95522413321335" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#f4b400"></rect><rect x="390" y="117.3986950597886" width="10" height="43.01343586300666" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#f5bf26"></rect><rect x="390" y="170.41213092279526" width="10" height="38.31765392850191" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#0f9d58"></rect><rect x="390" y="218.72978485129715" width="10" height="5.488619149842452" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#33ab71"></rect><rect x="390" y="234.21840400113962" width="10" height="10.781595998860363" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#ab47bc"></rect><rect x="0" y="0" width="10" height="45.44347092657525" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#b762c6"></rect><rect x="130" y="0" width="10" height="42.772137580077796" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#00acc1"></rect><rect x="0" y="55.44347092657525" width="10" height="51.95522413321335" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#26b8ca"></rect><rect x="0" y="117.3986950597886" width="10" height="43.01343586300666" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#ff7043"></rect><rect x="0" y="170.41213092279526" width="10" height="38.31765392850191" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#ff855f"></rect><rect x="0" y="218.72978485129715" width="10" height="5.488619149842452" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#9e9d24"></rect><rect x="0" y="234.21840400113962" width="10" height="10.781595998860363" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#acab44"></rect><rect x="130" y="52.772137580077796" width="10" height="106.90100677293871" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#5c6bc0"></rect><rect x="130" y="169.6731443530165" width="10" height="45.32685564698349" stroke="none" stroke-width="0" fill-opacity="0.8" fill="#7481c9"></rect></g><g></g><g></g><g></g><g></g><g></g></svg><div aria-label="A tabular representation of the data in the chart." style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">[object Object]</div></div></div><div aria-hidden="true" style="display: none; position: absolute; top: 260px; left: 410px; white-space: nowrap; font-family: Arial; font-size: 16px;">11285.6</div><div></div></div></div>
+ <div><span>Data: sankey_df • Chart ID: <a href="http://127.0.0.1:27908/custom/googleVis/Chart_SankeyID18f83ec0305a.html">SankeyID18f83ec0305a</a> • <a href="https://github.com/mages/googleVis">googleVis-0.6.0</a></span><br> 
+<!-- htmlFooter -->
+<span> 
+  R version 3.3.0 (2016-05-03) 
+  • <a href="https://developers.google.com/terms/">Google Terms of Use</a> • <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery/sankey">Documentation and Data Policy</a>
+</span></div>
+
+
+</body></html>
