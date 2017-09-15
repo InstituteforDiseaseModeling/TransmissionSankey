@@ -9,27 +9,10 @@
 
 # Node recoded to County
 # Gender
-# Age in 5-year strata
-
-# --> derive Age in 15-24 or 25-49 or not
-# --> derive Age 15-49 or not
-
-
-# Number of acquired infections
-# Number of transmitted infections
-
-
-## define Sankey categories
-
-# Age ranges: <15, 15-24, 25-49, 50+
-# Gender: M, F
-# Risk group: L, M, H
-# (Less relevant) -- relationship type: T, I, M, C (check if commercial was added to Rel_type enum)
-
-## read in transmission.csv, discard rows except in the years of interest, 2015-2020
-
-## for each row of interest, look up IP list of A from RelationshipStart.csv
-
+# Create contingency tables for Sankey analysis of HIV transmission patterns
+# Anna Bershteyn, 
+# 9 September 2017
+# https://github.com/InstituteforDiseaseModeling/TransmissionSankey
 
 import pandas as pd
 import os as os
@@ -38,9 +21,10 @@ import time as time
 #from os import path
 
 TEST_MODE = False
-VERBOSE_MODE = True
-curr_folder = 'output_TRANSMISSION_AND_RELATIONSHIPS'
-base_directory_path = 'Z:/mint/Dropbox (IDM)/research/HIV/2017/Kenya_non_resident_comparison/modeling'
+VERBOSE_MODE = False
+SAVE_AUGMENTED_TRANSMISSIONS_FILE = False
+
+output_folder = 'output/'
 save_transmission_dataset_filename = "Transmission_with_RiskIP.pkl"
 how_often_to_report_time = 1 # number of transmission events to record before reporting time
 
@@ -53,7 +37,7 @@ if TEST_MODE & os.path.isfile('pickle_transm_input_csv.pkl') & os.path.isfile('p
     rels = pd.read_pickle('pickle_rels_input_csv.pkl')
 else:
     # load transmission report  as a pandas data frame
-    transm = pd.read_csv(os.path.join(base_directory_path, curr_folder, 'TransmissionReport.csv'))
+    transm = pd.read_csv(os.path.join(output_folder, 'TransmissionReport.csv'))
 
     # keep only years >=2015 and <2020
     transm = transm[(transm.YEAR >= 2015) & (transm.YEAR < 2020)]
@@ -62,7 +46,7 @@ else:
     transm = transm[['YEAR','NODE_ID','SRC_ID','SRC_GENDER','SRC_AGE','SRC_CIRCUMSIZED','SRC_INF_AGE', 'DEST_ID','DEST_GENDER','DEST_AGE','DEST_CIRCUMSIZED']]
 
     # load relationship CSV
-    rels = pd.read_csv(os.path.join(base_directory_path, curr_folder, 'RelationshipStart.csv'))
+    rels = pd.read_csv(os.path.join(output_folder, 'RelationshipStart.csv'))
 
     # keep only relevant columns
     rels = rels[['Rel_start_time','Rel_type (0 = TRANSITORY; 1 = INFORMAL; 2 = MARITAL; 3 = COMMERCIAL)','Current_node_ID', 'A_ID', 'B_ID', 'A_IndividualProperties', 'B_IndividualProperties']]
@@ -229,5 +213,6 @@ pd.crosstab(transm.DEST_Risk, transm.NODE_ID).to_csv('DEST_Risk_vs_NODE_ID.csv',
 # check how long it took to do one dataset
 print("Total script runtime was %f seconds" % (time.time() - script_start_time))
 
-print("Saving IP cross-referenced transmission dataset to filename " + save_transmission_dataset_filename)
-transm.to_pickle(save_transmission_dataset_filename)  # where to save it, usually as a .pkl
+if SAVE_AUGMENTED_TRANSMISSIONS_FILE:
+    print("Saving IP cross-referenced transmission dataset to filename " + save_transmission_dataset_filename)
+    transm.to_pickle(save_transmission_dataset_filename)  # where to save it, usually as a .pkl
